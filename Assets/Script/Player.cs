@@ -46,9 +46,31 @@ public class Player : MonoBehaviour
     // 当たり判定
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // 地面
         if (collision.gameObject.tag == "Floor")
         {
             _bJump = false;
+        }
+
+        // 敵
+        if (collision.gameObject.tag == "Enemy")
+        {
+            _HitEnemy(collision.gameObject);
+        }
+    }
+
+    // 敵を倒す処理
+    private void _HitEnemy(GameObject enemy)
+    {
+        // 縦の大きさの半分
+        float halfScaleY = transform.lossyScale.y / 2.0f;
+        // 敵の半分の大きさ
+        float enemyHalfScaleY = enemy.transform.lossyScale.y / 2.0f;
+
+        // 敵を踏める条件
+        if (transform.position.y - (halfScaleY - 0.1f) >= enemy.transform.position.y + (enemyHalfScaleY - 0.1f))
+        {
+            Destroy(enemy);
         }
     }
 
