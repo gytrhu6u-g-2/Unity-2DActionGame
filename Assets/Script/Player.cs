@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     private float _moveSpeed;
     [SerializeField, Header("ジャンプ速度")]
     private float _jumpSpeed;
+    [SerializeField, Header("体力")]
+    private int _hp;
 
     private Vector2 _inputDirection;
     private Rigidbody2D _rigid;
@@ -27,6 +29,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         _Move();
+        Debug.Log(_hp);
     }
 
     // 移動処理
@@ -72,6 +75,11 @@ public class Player : MonoBehaviour
         {
             Destroy(enemy);
         }
+        // ダメージを受ける
+        else
+        {
+            enemy.GetComponent<Enemy>().PlayerDamage(this);
+        }
     }
 
     // Jumpアクション
@@ -83,5 +91,12 @@ public class Player : MonoBehaviour
         // 上方向に力を加える
         _rigid.AddForce(Vector2.up * _jumpSpeed, ForceMode2D.Impulse);  // ForceMode2D.Impulseは初速が早く、徐々に減速させる
         _bJump = true;
+    }
+
+    // ダメージ処理
+    public void Damage(int damage)
+    {
+        // 0と比べて大きい方の数値を_hpに代入
+        _hp = Mathf.Max(_hp - damage, 0);
     }
 }
