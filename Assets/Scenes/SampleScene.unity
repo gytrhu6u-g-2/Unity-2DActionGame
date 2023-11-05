@@ -297,6 +297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 5
   _jumpSpeed: 7
+  _hp: 5
 --- !u!114 &5815962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,6 +580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 3
+  _attackPower: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
