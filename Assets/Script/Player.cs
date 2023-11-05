@@ -100,4 +100,10 @@ public class Player : MonoBehaviour
         // 0と比べて大きい方の数値を_hpに代入
         _hp = Mathf.Max(_hp - damage, 0);
     }
+
+    // 体力の取得
+    public int GetHP()
+    {
+        return _hp;
+    }
 }
