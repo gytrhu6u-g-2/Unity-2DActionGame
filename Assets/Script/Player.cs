@@ -57,6 +57,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Floor")
         {
             _bJump = false;
+            _anim.SetBool("Jump", _bJump);
         }
 
         // 敵
@@ -105,6 +106,7 @@ public class Player : MonoBehaviour
         // 上方向に力を加える
         _rigid.AddForce(Vector2.up * _jumpSpeed, ForceMode2D.Impulse);  // ForceMode2D.Impulseは初速が早く、徐々に減速させる
         _bJump = true;
+        _anim.SetBool("Jump", _bJump);
     }
 
     // ダメージ処理
