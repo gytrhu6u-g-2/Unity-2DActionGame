@@ -83,6 +83,15 @@ public class Player : MonoBehaviour
         }
     }
 
+    // 敵を倒した時
+    private void _Dead()
+    {
+        if (_hp <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // Jumpアクション
     public void OnJump(InputAction.CallbackContext context)
     {
@@ -99,6 +108,7 @@ public class Player : MonoBehaviour
     {
         // 0と比べて大きい方の数値を_hpに代入
         _hp = Mathf.Max(_hp - damage, 0);
+        _Dead();
     }
 
     // 体力の取得

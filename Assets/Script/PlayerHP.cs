@@ -49,7 +49,7 @@ public class PlayerHP : MonoBehaviour
         // 子オブジェクトを探して当てはまる全てのコンポーネントを配列で取得
         Image[] icons = transform.GetComponentsInChildren<Image>();
 
-        // アイコン分の体力表示
+        // 体力分の表示
         for (int i = 0; i < icons.Length; i++)
         {
             icons[i].gameObject.SetActive(i < _player.GetHP());
