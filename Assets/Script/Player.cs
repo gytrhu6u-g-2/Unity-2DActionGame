@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     private Vector2 _inputDirection;
     private Rigidbody2D _rigid;
     private bool _bJump;
+    private Animator _anim;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
         // Rigidbody2Dのコンポーネント取得
         _rigid = GetComponent<Rigidbody2D>();
         _bJump = false;
+        _anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -37,6 +39,8 @@ public class Player : MonoBehaviour
     {
         // X軸の移動
         _rigid.velocity = new Vector2(_inputDirection.x * _moveSpeed, _rigid.velocity.y);
+        // 歩く動作のbool変更
+        _anim.SetBool("Walk", _inputDirection.x != 0);
     }
 
     // 移動した入力情報を代入する
