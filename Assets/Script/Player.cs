@@ -12,11 +12,17 @@ public class Player : MonoBehaviour
     private float _jumpSpeed;
     [SerializeField, Header("体力")]
     private int _hp;
+    [SerializeField, Header("無敵時間")]
+    private float _damageTime;
+    [SerializeField, Header("点滅時間")]
+    private float _flashTime;
 
     private Vector2 _inputDirection;
     private Rigidbody2D _rigid;
     private bool _bJump;
     private Animator _anim;
+    private SpriteRenderer _spriteRenderer;
+
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +31,7 @@ public class Player : MonoBehaviour
         _rigid = GetComponent<Rigidbody2D>();
         _bJump = false;
         _anim = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -64,6 +71,10 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             _HitEnemy(collision.gameObject);
+            // layerの名前を取得
+            gameObject.layer = LayerMask.NameToLayer("PlayerDamage");
+            // コルーチンで関数の実行
+            StartCoroutine(_Damage());
         }
     }
 
@@ -86,6 +97,28 @@ public class Player : MonoBehaviour
         {
             enemy.GetComponent<Enemy>().PlayerDamage(this);
         }
+    }
+
+    // 敵にダメージを受けた後、無敵時間の付与　(コルーチン)
+    IEnumerator _Damage()
+    {
+        // 初期値：白
+        Color color = _spriteRenderer.color;
+        for (int i = 0; i < _damageTime; i++)
+        {
+            // 処理を一度中断
+            yield return new WaitForSeconds(_flashTime);
+            // float型の引数：赤、緑、青、透明度
+            _spriteRenderer.color = new Color(color.r, color.g, color.b, 0.0f);
+
+            // 処理を一度中断
+            yield return new WaitForSeconds(_flashTime);
+            _spriteRenderer.color = new Color(color.r, color.g, color.b, 1.0f);
+        }
+        // 色を元に戻す
+        _spriteRenderer.color = color;
+        // layerをdefaultに戻す
+        gameObject.layer = LayerMask.NameToLayer("Default");
     }
 
     // 敵を倒した時
