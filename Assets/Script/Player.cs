@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     {
         _Move();
         Debug.Log(_hp);
+        _LookMoveDirec();
     }
 
     // 移動処理
@@ -48,6 +49,22 @@ public class Player : MonoBehaviour
         _rigid.velocity = new Vector2(_inputDirection.x * _moveSpeed, _rigid.velocity.y);
         // 歩く動作のbool変更
         _anim.SetBool("Walk", _inputDirection.x != 0);
+    }
+
+    // 進行方向でプレイヤーの向きを決める
+    private void _LookMoveDirec()
+    {
+        // 右へ進んでいる時
+        if (_inputDirection.x > 0.0f)
+        {
+            // eulerAnglesはオブジェクトの角度をオイラー角(回転)で指定
+            transform.eulerAngles = Vector3.zero;
+        }
+        // 左へ進んでいる時
+        else
+        {
+            transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
+        }
     }
 
     // 移動した入力情報を代入する

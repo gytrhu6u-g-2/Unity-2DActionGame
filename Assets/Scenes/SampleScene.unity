@@ -298,7 +298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 5
   _jumpSpeed: 15
-  _hp: 1
+  _hp: 5
   _damageTime: 3
   _flashTime: 0.1
 --- !u!114 &5815962
